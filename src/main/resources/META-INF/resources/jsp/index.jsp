@@ -11,7 +11,15 @@
     <title>Title</title>
 </head>
 <body>
-index
-
+<div>
+    <%--<c:if test="${text2!=null && !text2.equals('')}">--%>
+    <%--Zalogowany jako: ${text2}<br/>--%>
+    <%--</c:if>--%>
+    <form action="http://localhost:8080/generate" method="POST">
+        <label>Podaj tekst</label>
+        <input type="text" name="text" required autofocus/>
+        <button type="submit">Generate</button>
+    </form>
+</div>
 </body>
 </html>
