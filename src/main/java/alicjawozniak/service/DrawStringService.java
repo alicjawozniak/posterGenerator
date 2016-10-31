@@ -87,6 +87,52 @@ public class DrawStringService {
     }
 
     public void drawString2(BufferedImage bufferedImage, String text) {
+        Graphics2D graphics2D = bufferedImage.createGraphics();
+        int imageHeight = bufferedImage.getHeight();
+        int imageWidth = bufferedImage.getWidth();
+        Random random = new Random();
+
+        String[] words = text.split(" ");
+        int textWidth = imageWidth / 2;
+
+        String fontName = getRandomFont();
+        Font font = new Font(fontName, Font.PLAIN, imageWidth / 15);
+
+
+        int numberOfLines = random.nextInt(words.length / 2) + 1;
+        int averageNumberOfWordsInLine = words.length / numberOfLines;
+
+        int indexOfCurrentWord = 0;
+
+        int textHeight = (int) font.getStringBounds(words[0], graphics2D.getFontRenderContext()).getHeight();
+        int currentX = random.nextInt(textWidth);
+        int currentY = textHeight + random.nextInt(200);
+
+        String stringToWrite;
+        for (int i = 0; i < numberOfLines && indexOfCurrentWord < words.length; i++) {
+            int wordsToWrite = random.nextInt(averageNumberOfWordsInLine) + 3;
+            stringToWrite = "";
+            for (int j = 0; j < wordsToWrite && indexOfCurrentWord < words.length; j++) {
+                stringToWrite += " " + words[indexOfCurrentWord];
+                indexOfCurrentWord++;
+            }
+            AttributedString attributedString = new AttributedString(stringToWrite);
+            attributedString.addAttribute(TextAttribute.FONT, font, 0, stringToWrite.length());
+            graphics2D.drawString(attributedString.getIterator(), currentX, currentY);
+            currentY += textHeight;
+            currentX = random.nextInt(textWidth);
+        }
+        if (indexOfCurrentWord < words.length - 1) {
+            stringToWrite = "";
+            for (; indexOfCurrentWord < words.length; indexOfCurrentWord++) {
+                stringToWrite += " " + words[indexOfCurrentWord];
+            }
+            AttributedString attributedString = new AttributedString(stringToWrite);
+            attributedString.addAttribute(TextAttribute.FONT, font, 0, stringToWrite.length());
+            graphics2D.drawString(attributedString.getIterator(), currentX, currentY);
+            currentY += textHeight;
+            currentX = random.nextInt(textWidth);
+        }
     }
 
 }
