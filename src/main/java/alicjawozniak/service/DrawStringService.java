@@ -30,7 +30,7 @@ public class DrawStringService {
         return importedFont.getFontName();
     }
 
-    public Graphics2D drawString1(BufferedImage bufferedImage, String text) {
+    public void drawString1(BufferedImage bufferedImage, String text) {
         Graphics2D graphics2D = bufferedImage.createGraphics();
         int imageHeight = bufferedImage.getHeight();
         int imageWidth = bufferedImage.getWidth();
@@ -82,8 +82,6 @@ public class DrawStringService {
             }
         }
 
-
-        return graphics2D;
     }
 
     public void drawString2(BufferedImage bufferedImage, String text) {
@@ -105,33 +103,23 @@ public class DrawStringService {
         int indexOfCurrentWord = 0;
 
         int textHeight = (int) font.getStringBounds(words[0], graphics2D.getFontRenderContext()).getHeight();
-        int currentX = random.nextInt(textWidth);
+        int currentX;
         int currentY = textHeight + random.nextInt(200);
 
         String stringToWrite;
-        for (int i = 0; i < numberOfLines && indexOfCurrentWord < words.length; i++) {
+        while (indexOfCurrentWord < words.length) {
             int wordsToWrite = random.nextInt(averageNumberOfWordsInLine) + 3;
             stringToWrite = "";
-            for (int j = 0; j < wordsToWrite && indexOfCurrentWord < words.length; j++) {
+            for (int j = 0; j < wordsToWrite && indexOfCurrentWord < words.length
+                    && imageWidth > (int) font.getStringBounds(stringToWrite + " " + words[indexOfCurrentWord], graphics2D.getFontRenderContext()).getWidth(); j++) {
                 stringToWrite += " " + words[indexOfCurrentWord];
                 indexOfCurrentWord++;
             }
+            currentX = random.nextInt(imageWidth - (int) font.getStringBounds(stringToWrite, graphics2D.getFontRenderContext()).getWidth()) / 2;
             AttributedString attributedString = new AttributedString(stringToWrite);
             attributedString.addAttribute(TextAttribute.FONT, font, 0, stringToWrite.length());
             graphics2D.drawString(attributedString.getIterator(), currentX, currentY);
             currentY += textHeight;
-            currentX = random.nextInt(textWidth);
-        }
-        if (indexOfCurrentWord < words.length - 1) {
-            stringToWrite = "";
-            for (; indexOfCurrentWord < words.length; indexOfCurrentWord++) {
-                stringToWrite += " " + words[indexOfCurrentWord];
-            }
-            AttributedString attributedString = new AttributedString(stringToWrite);
-            attributedString.addAttribute(TextAttribute.FONT, font, 0, stringToWrite.length());
-            graphics2D.drawString(attributedString.getIterator(), currentX, currentY);
-            currentY += textHeight;
-            currentX = random.nextInt(textWidth);
         }
     }
 

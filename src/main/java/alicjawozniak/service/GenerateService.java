@@ -37,7 +37,10 @@ public class GenerateService {
         File file = null;
         try {
             BufferedImage bufferedImage = getRandomBackground();
-            drawStringService.drawString1(bufferedImage, text);
+            if (text.split(" ").length < 8)
+                drawStringService.drawString1(bufferedImage, text);
+            else
+                drawStringService.drawString2(bufferedImage, text);
             file = new File(generatedDir, "generated" + LocalDateTime.now() + ".png");
             ImageIO.write(bufferedImage, "PNG", file);
         } catch (IOException e) {
