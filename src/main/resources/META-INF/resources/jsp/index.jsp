@@ -14,7 +14,7 @@
 </head>
 <body>
 <div>
-    <h1>Poster Generator</h1>
+    <h1 class="text-center">Poster Generator</h1>
 
 </div>
 <div>
