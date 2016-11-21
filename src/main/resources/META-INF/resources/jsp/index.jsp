@@ -8,17 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Poster Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <div>
-    <%--<c:if test="${text2!=null && !text2.equals('')}">--%>
-    <%--Zalogowany jako: ${text2}<br/>--%>
-    <%--</c:if>--%>
-    <form action="http://localhost:8080/generate" method="POST">
+    <h1>Poster Generator</h1>
+
+</div>
+<div>
+    <form action="http://localhost:8080/generate" method="POST" class="form-group col-md-12 ">
+        <br/>
+        <br/>
         <label>Podaj tekst</label>
-        <input type="text" name="text" required autofocus/>
-        <button type="submit">Generate</button>
+        <br/>
+        <input type="text" name="text" class="form-control" required autofocus/>
+        <br/>
+        <button type="submit" class="btn btn-primary">Generate</button>
     </form>
 </div>
 </body>
